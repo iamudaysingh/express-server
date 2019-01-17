@@ -14,7 +14,7 @@ function triangle(n)
         }
         console.log(str);
         str = "";
-       console.log('');
+       //console.log('');
     }
     let str1 = '';
     for(let i=1; i<=n; i++)
@@ -30,7 +30,7 @@ function triangle(n)
         }
         console.log(str1);
         str1 = "";
-       console.log('');
+       //console.log('');
     }
 }
 triangle(5);
