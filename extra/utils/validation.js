@@ -25,7 +25,7 @@ validateUsers(user); */
    "trainee1@successive.tech","reviewer1@successive.tech","123456"
 
 ];*/
-function ValidateUser(user1) {
+function validateUser(user1) {
   //let regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(successive)\.tech$/
   //var values = [];
   /*values = Object.values(user);
@@ -77,12 +77,14 @@ console.log(v1);*/
     let regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(successive)\.tech$/;
     if (regex.test(v1[i])) {
       //console.log(V1[i]);
-      valid[vc] = v1[i];
+      //valid[vc] = v1[i];
+      //vc++;
+      valid.push(v1[i]);
       vc++;
       //console.log(true);
     } else {
       //console.log(V1[i]);
-      invalid[ic] = v1[i];
+      invalid.push(v1[i]);
       ic++;
       //console.log(false);
     }
@@ -93,4 +95,4 @@ console.log(v1);*/
   console.log("no of invalid users", ic);
   console.log("invalid users are as follows", invalid);
 }
-ValidateUser(user);
+validateUser(user);

@@ -1,7 +1,7 @@
 {
   "name": "express-server",
   "version": "1.0.0",
-  "description": "First Nodejs Apgip",
+  "description": "First Nodejs App",
   "main": "index.js",
   "scripts": {
     "D":"node extra/patterns/Diamond_pattern.js","E":"node extra/patterns/Equilateral_triangle.js",
