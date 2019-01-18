@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "D":"node extra/patterns/Diamond_pattern.js","E":"node extra/patterns/Equilateral_triangle.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "F":"node extra/utils/validation.js","G":"node extra/utils/hasPermission.js","test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
