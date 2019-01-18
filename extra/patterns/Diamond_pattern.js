@@ -1,4 +1,4 @@
-function triangle(n)
+export default function triangle1(n)
 {
     let str = '';
     for(let i=1; i<=n; i++)
@@ -33,4 +33,4 @@ function triangle(n)
        //console.log('');
     }
 }
-triangle(5);
+

@@ -4,8 +4,7 @@
   "description": "First Nodejs App",
   "main": "index.js",
   "scripts": {
-    "D":"node extra/patterns/Diamond_pattern.js","E":"node extra/patterns/Equilateral_triangle.js",
-    "F":"node extra/utils/validation.js","G":"node extra/utils/hasPermission.js","test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "babel-node extra --presets env"
   },
   "repository": {
     "type": "git",
@@ -16,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/iamudaysingh/express-server/issues"
   },
-  "homepage": "https://github.com/iamudaysingh/express-server#readme"
+  "homepage": "https://github.com/iamudaysingh/express-server#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
 }

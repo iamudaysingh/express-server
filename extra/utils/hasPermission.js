@@ -1,16 +1,11 @@
-const getUsers = "getUsers";
-const head_trainer = "head_trainer";
-const trainer = "trainer";
-const trainer1 = "trainee";
-const permissions = {
-  getUsers: {
-    all: ["head-trainer"],
-    read: ["trainee", "trainer"],
-    write: ["trainer"],
-    delete: []
-  }
-};
-function hasPermission(module_name, role, permissionType) {
+import {
+  getUsers,
+  head_trainer,
+  trainer,
+  trainer1,
+  permissions
+} from "../constant";
+export default function hasPermission(module_name, role, permissionType) {
   //let {getUsers : { all : [ x ] , read : [ b , c ] , write : [ d ] , delete : [] } } = permissions;
   if (module_name == "getUsers") {
     if (
@@ -18,7 +13,12 @@ function hasPermission(module_name, role, permissionType) {
       permissions[module_name]["all"].includes(role)
     ) {
       console.log("true");
-    } else console.log("false");
+    } else {
+       console.log("false");
+    }
+    else {
+      console.log("false");
+    }
   }
 }
-hasPermission("getUsers", "head-trainer", "write");
+
