@@ -2,7 +2,7 @@ const getUsers = "getUsers";
 const head_trainer = "head_trainer";
 const trainer = "trainer";
 const trainer1 = "trainee";
-let permissions = {
+const permissions = {
   getUsers: {
     all: ["head-trainer"],
     read: ["trainee", "trainer"],
