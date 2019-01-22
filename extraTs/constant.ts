@@ -1,12 +1,12 @@
 import { Iper } from "./utils/interfaces";
-const getUsers = "getUsers";
-const getEmpid = "getEmpid";
-const  getAccountinfo = " getAccountinfo";
-const getBranchinfo = "getBranchinfo";
-const getStudentinfo = "getStudentinfo";
-const head_trainer = "head-trainer";
-const trainer = "trainer";
-const trainee= "trainee";
+const getUsers : string = "getUsers";
+const getEmpid : string = "getEmpid";
+const  getAccountinfo : string = " getAccountinfo";
+const getBranchinfo : string = "getBranchinfo";
+const getStudentinfo : string = "getStudentinfo";
+const head_trainer : string = "head-trainer";
+const trainer : string = "trainer";
+const trainee : string = "trainee";
 const permissions: Iper = {
   getUsers: {
     all: [head_trainer],
