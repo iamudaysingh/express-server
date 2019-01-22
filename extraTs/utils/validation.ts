@@ -15,7 +15,7 @@ export default function validateUser(user1: Iper1[]): void {
   let invalid = [];
   let vc = 0;
   let ic = 0;
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < v1.length; i++) {
     let regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(successive)\.tech$/;
     if (regex.test(v1[i])) {
       valid.push(v1[i]);

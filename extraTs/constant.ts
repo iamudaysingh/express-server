@@ -1,5 +1,9 @@
 import { Iper } from "./utils/interfaces";
 const getUsers = "getUsers";
+const getEmpid = "getEmpid";
+const  getAccountinfo = " getAccountinfo";
+const getBranchinfo = "getBranchinfo";
+const getStudentinfo = "getStudentinfo";
 const head_trainer = "head-trainer";
 const trainer = "trainer";
 const trainee= "trainee";

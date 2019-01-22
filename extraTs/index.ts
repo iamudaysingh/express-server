@@ -3,7 +3,7 @@ import { hasPermission, validateUser } from "./utils";
 import { Iper1 } from "./utils/interfaces";
 triangle(5);
 triangle1(5);
-hasPermission("getBranchinfo", "trainer", "delete");
+hasPermission("getBranchinfo", "trainer", "write");
 const user: Iper1[] = [
   {
     traineeEmail: "trainee1@successive.tech",
