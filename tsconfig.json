@@ -23,6 +23,6 @@
     }
   },
   "exclude": ["dist"],
-  "include": ["extraTs"],
+  "include": /*["extraTs"]*/  ["src", "index.ts"],
   "types": ["src/types"]
 }
