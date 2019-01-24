@@ -18,7 +18,7 @@ export class Server {
   }
   public setupRoutes() {
     const { app } = this;
-    app.use("/health-check", (req, res, next) => {
+    app.use("/health-check", (req, res) => {
       console.log("INSIDE SETUPROUTES");
       res.send("I AM OK");
     });
