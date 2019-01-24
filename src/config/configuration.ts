@@ -4,5 +4,4 @@ config();
 const configuration: IConfig = Object.freeze({
   port: process.env.PORT
 });
-console.log("config is", process.env.PORT);
 export default configuration;
