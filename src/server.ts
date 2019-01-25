@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import { notFoundRoutes, errorHandler } from "./libs/routes";
+import router from './router';
 export class Server {
   private app: express.Express;
   constructor(private config) {
@@ -22,6 +23,7 @@ export class Server {
       console.log("INSIDE SETUPROUTES");
       res.send("I AM OK");
     });
+    app.use("/api", router);
     app.use(notFoundRoutes);
     app.use(errorHandler);
   }
