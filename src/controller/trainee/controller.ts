@@ -1,14 +1,14 @@
 import { Router, Request, Response, nextFunction } from "express";
 import { successHandler } from "./";
- class TraineeController {
-
-  instance: any = null;
-  constructor() {
-    if (!this.instance) {
-      this.instance = this;
+class TraineeController {
+  private static instance: TraineeController;
+  public static getInstance() {
+    if (!TraineeController.instance) {
+      TraineeController.instance = new TraineeController();
     }
+    return TraineeController.instance;
   }
- get(req: Request, res: Response, next: nextFunction) {
+  get(req: Request, res: Response, next: nextFunction) {
     const data = [
       {
         name1: "trainee1",
@@ -57,15 +57,12 @@ import { successHandler } from "./";
   }
 
   erase(req: Request, res: Response, next: nextFunction) {
-    const { name, id } = req.body;
-    const data = "NULL";
-    if (name && id) {
-      res.status(200).send(successHandler("200", "Successfully Deleted", data));
-    } else {
-      next({ error: "Not Found", status: 404, Message: "Data is not present" });
-    }
+    console.log("inside erase");
+    const id = req.params.id;
+
+    res.status(200).send(successHandler("200", "Successfully Deleted", "NULL" ));
   }
 }
-const singleton:TraineeController = new TraineeController();
-Object.freeze(singleton);
-export { TraineeController }
+//const singleton:TraineeController = new TraineeController();
+//Object.freeze(singleton);
+export default TraineeController.getInstance();
