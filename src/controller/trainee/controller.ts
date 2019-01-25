@@ -1,4 +1,4 @@
-import { Router, Request, Response, nextFunction } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { successHandler } from "./";
 class TraineeController {
   private static instance: TraineeController;
@@ -8,7 +8,7 @@ class TraineeController {
     }
     return TraineeController.instance;
   }
-  get(req: Request, res: Response, next: nextFunction) {
+  get(req: Request, res: Response, next: NextFunction) {
     const data = [
       {
         name1: "trainee1",
@@ -21,7 +21,7 @@ class TraineeController {
     ];
     res.status(200).send(successHandler("200", "Successfully Found", data));
   }
-  create(req: Request, res: Response, next) {
+  create(req: Request, res: Response, next: NextFunction) {
     const { name, id } = req.body;
     const data = [
       {
@@ -39,7 +39,7 @@ class TraineeController {
       });
     }
   }
-  modify(req: Request, res: Response, next: nextFunction) {
+  modify(req: Request, res: Response, next: NextFunction) {
     const { name, id } = req.body;
     const data = [
       {
@@ -56,7 +56,7 @@ class TraineeController {
     }
   }
 
-  erase(req: Request, res: Response, next: nextFunction) {
+  erase(req: Request, res: Response, next: NextFunction) {
     console.log("inside erase");
     const id = req.params.id;
 
