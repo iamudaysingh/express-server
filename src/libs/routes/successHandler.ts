@@ -4,9 +4,9 @@ export default function successHandler(
   data: any
 ) {
   return {
-    Status: status || "OK",
-    Message: message || "Successful",
-    Data: data || null,
-    Timestamp: new Date()
+    status: status || "OK",
+    message: message || "Successful",
+    data: data || null,
+    timestamp: new Date()
   };
 }
