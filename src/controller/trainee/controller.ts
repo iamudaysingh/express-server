@@ -60,7 +60,7 @@ class TraineeController {
     console.log("inside erase");
     const id = req.params.id;
 
-    res.status(200).send(successHandler("200", "Successfully Deleted", "NULL" ));
+    res.status(200).send(successHandler("200", "Successfully Deleted", "NULL"));
   }
 }
 //const singleton:TraineeController = new TraineeController();

@@ -1,7 +1,6 @@
-import Trainee  from "./controller";
+import Trainee from "./controller";
 import { Router, Request, Response } from "express";
 const traineeRouter: Router = Router();
-
 
 traineeRouter.get("/", Trainee.get);
 traineeRouter.post("/", Trainee.create);
