@@ -1,61 +1,106 @@
-
-/*export default function validationHandler(config){
-return (req, res, next)=>{
-  console.log(req.body);
-
-  let arr1 = [];
-  for(let key in req.body){
-   if(config.hasOwnProperty(key)){
-    arr1.push(config[key]);
-   }
-  }
-  console.log(arr1);
-  let arr = [];
-  for(let key in config){
-   if(config.hasOwnProperty(key)){
-    arr.push(config[key]);
-   }
-  }
-  console.log(arr);
-if(req.body)
-{
- arr.forEach((element1, index) => {
-   console.log('Element is????', element1);
-   console.log(config[element1])
-   // Object.keys(element1).forEach((element2, index) => {
-     // console.log(element1[element2]);
-
-  // });
-  });
-next()
-}
-
-}
-}*/
 export default config => (req, res, next) => {
-  console.log("Inside validation Handler\n");
+  const keys = Object.keys(config);
+  keys.forEach(key => {
+    const item = config[key];
+    const values: String[] = item.in.map(item => {
+      return req[item][key];
+    });
+    if (item && item.required) {
+      console.log("inside if");
+      const validatedValues = values.filter(item => item);
+      if (validatedValues.length != values.length) {
+        console.log(item.id.errorMessage);
+        next({ status: 404, message: item.errorMessage });
+      }
+      validatedValues.forEach(function(isString) {
+        if (item.string && !(typeof isString == "string")) {
+          console.log("id is not string type  ", validatedValues);
+          next({
+            status: "Bad Request",
+            message:
+              item.errorMessage ||
+              `${validatedValues} is not string` ||
+              "ERROR MESSAGE"
+          });
+        }
+      });
+      validatedValues.forEach(function(isNumber) {
+        if (item.number && !(typeof isNumber == "number")) {
+          console.log("inside number validation ", validatedValues);
+          next({
+            status: "Bad Request",
+            message:
+              item.errorMessage ||
+              `${validatedValues} is not number` ||
+              "ERROR MESSAGE"
+          });
+        }
+      });
+      if (item && item.regex) {
+        validatedValues.forEach(function(isRegex) {
+          let re = item.regex;
+          if (!re.test(isRegex)) {
+            console.log(re.test(isRegex));
+            next({
+              status: "Bad Request",
+              message:
+                item.errorMessage ||
+                `${validatedValues} is not proper name` ||
+                validatedValues.forEach(function(isRegex) {
+                  let re = item.regex;
+                  if (!re.test(isRegex)) {
+                    console.log(re.test(isRegex));
+                    next({
+                      status: "Bad Request",
+                      message:
+                        item.errorMessage ||
+                        `${validatedValues} is not proper name` ||
+                        "ERROR MESSAGE"
+                    });
+                  }
+                })
+            });
+          }
+        });
+      }
+      if (item.isObject) {
+        validatedValues.forEach(function(isObject) {
+          if (!(typeof isObject == "object")) {
+            console.log("inside object validation");
+            next({
+              status: "Bad Request",
+              message:
+                item.errorMessage ||
+                `${validatedValues} is not proper object` ||
+                "ERROR MESSAGE"
+            });
+          }
+        });
+      }
+    }
+    /*if (item && !item.required) {
+    const validatedValues = values.filter(item => item);
+      validatedValues.forEach(function skip_limit() {
+        if (isNaN(req.query.skip) && isNaN(req.query.limit)) {
+          console.log("Number spotted");
+          next({
+            status: "Bad Request",
+            message: item.errorMessage || "Error Message"
+          });
+        }
+      });
 
-  const values = Object.keys(config).map(key => config[key]);
-  console.log(values);
-  values.forEach(element => {
-  const KEYS = Object.keys(element);
-  const val = KEYS.map(key => element[key]);
-  if(val[0]){
-  const I = KEYS.indexOf('in');
-  //const al: string = val[I][0];
-  if(val[I][0] == 'body'){
-  console.log(req.body);
-  console.log('\n');
-  }
-  //console.log(al);
-  console.log(KEYS);
-  console.log(val);
-  next
-  }
+      validatedValues.forEach(function skip_limit1() {
+        var skip = req.query.skip;
+        console.log(skip);
+        var limit = req.query.limit;
+        if (isNaN(skip) && isNaN(limit)) {
+          skip = item.default;
+          limit = item.default;
+          console.log(skip, limit);
+        }
+      });
+    }*/
   });
-  //console.log(values.length);
-  //console.log(values[0]);
-  //console.log('\n');
-  //console.log(values[1].in);
   next();
-  };
+};

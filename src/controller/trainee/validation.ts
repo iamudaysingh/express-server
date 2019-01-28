@@ -6,12 +6,12 @@ const validation = {
       in: ["body"],
       custom: function(value) {
         console.log("Value", value);
-        throw { error: "Error Occured", message: "Message" };
+        throw { error: "Error Occur", message: "Message" };
       }
     },
     name: {
       required: true,
-      regex: "",
+      regex: /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
       in: ["body"],
       errorMessage: "Name is required"
     }
@@ -38,6 +38,19 @@ const validation = {
       in: ["query"],
       errorMessage: "Limit is invalid"
     }
-  }
+  },
+  update: {
+    id: {
+        required: true,
+        string: true,
+        in:['body']
+    },
+    dataToUpdate: {
+        in: ['body'],
+        required: true,
+        isObject: true,
+        custom: function(dataToUpdate) {},
+    }
+}
 };
 export default validation;
