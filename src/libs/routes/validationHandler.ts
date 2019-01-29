@@ -2,7 +2,7 @@ export default config => (req, res, next) => {
   const keys = Object.keys(config);
   keys.forEach(key => {
     const item = config[key];
-    const values: String[] = item.in.map(item => {
+    let values= item.in.map(item => {
       return req[item][key];
     });
     if (item && item.required) {
@@ -77,29 +77,25 @@ export default config => (req, res, next) => {
           }
         });
       }
+      if(item.custom)
+      {
+        item.custom(values);
+      }
     }
-    if (item && !item.required) {
-    const validatedValues = values.filter(item => item);
-      validatedValues.forEach(function skip_limit() {
-        if (isNaN(req.query.skip) && isNaN(req.query.limit)) {
-          console.log("No Number spotted");
-          next({
-            status: "Bad Request",
-            message: item.errorMessage || "Error Message"
-          });
-        }
-      });
+    if (!item.required) {
+       let validatedValues = values.filter(item => item);
+       validatedValues.forEach(function skip_limit(values) {
 
-      validatedValues.forEach(function skip_limit1() {
-        var skip = req.query.skip;
-        console.log(skip);
-        var limit = req.query.limit;
-        if (isNaN(skip) && isNaN(limit)) {
-          skip = item.default;
-          limit = item.default;
-          console.log(skip, limit);
+        if (values == "") {
+          values=item.default;
+          console.log("i am in");
+          console.log("hi", values);
         }
-      });
+       });
+      if(item.custom)
+      {
+        item.custom(values);
+      }
     }
   });
   next();
