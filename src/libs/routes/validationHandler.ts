@@ -2,7 +2,7 @@ export default config => (req, res, next) => {
   const keys = Object.keys(config);
   keys.forEach(key => {
     const item = config[key];
-    let values= item.in.map(item => {
+    let values = item.in.map(item => {
       return req[item][key];
     });
     if (item && item.required) {
@@ -77,23 +77,18 @@ export default config => (req, res, next) => {
           }
         });
       }
-      if(item.custom)
-      {
+      if (item.custom) {
         item.custom(values);
       }
     }
     if (!item.required) {
-       let validatedValues = values.filter(item => item);
-       validatedValues.forEach(function skip_limit(values) {
-
+      let validatedValues = values.filter(item => item);
+      validatedValues.forEach(function skip_limit(values) {
         if (values == "") {
-          values=item.default;
-          console.log("i am in");
-          console.log("hi", values);
+          values = item.default;
         }
-       });
-      if(item.custom)
-      {
+      });
+      if (item.custom) {
         item.custom(values);
       }
     }
