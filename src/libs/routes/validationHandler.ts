@@ -78,11 +78,11 @@ export default config => (req, res, next) => {
         });
       }
     }
-    /*if (item && !item.required) {
+    if (item && !item.required) {
     const validatedValues = values.filter(item => item);
       validatedValues.forEach(function skip_limit() {
         if (isNaN(req.query.skip) && isNaN(req.query.limit)) {
-          console.log("Number spotted");
+          console.log("No Number spotted");
           next({
             status: "Bad Request",
             message: item.errorMessage || "Error Message"
@@ -100,7 +100,7 @@ export default config => (req, res, next) => {
           console.log(skip, limit);
         }
       });
-    }*/
+    }
   });
   next();
 };
