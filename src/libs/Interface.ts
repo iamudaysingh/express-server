@@ -1,5 +1,5 @@
 export interface IPermission {
-  [getUsers: string]: {
+  trainee : {
     read: string[];
     all: string[];
     write: string[];

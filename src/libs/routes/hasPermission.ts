@@ -1,10 +1,4 @@
-import {
-  getTrainee,
-  head_trainer,
-  trainer,
-  trainee,
-  permissions
-} from "../constant";
+import { permissions } from "../constant";
 export default function hasPermission(
   module_name: string,
   role: string,

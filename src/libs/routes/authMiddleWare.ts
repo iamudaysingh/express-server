@@ -8,7 +8,7 @@ export function authMiddleware(moduleName: string, permissionType: string) {
     const token = req.headers["authorization"];
     const { key } = configuration.default;
     const user = jwt.verify(token, key);
-
+    console.log(user.role);
     if (!user) {
       next({
         status: "Bad Request",
