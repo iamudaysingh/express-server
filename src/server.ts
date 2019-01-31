@@ -31,10 +31,11 @@ export class Server {
   public run() {
     const {
       app,
-      config: { port, mongoURL }
+      config: { port, mongoUrl }
     } = this;
-    Database.open(mongoURL)
-      .then(() => {
+    Database.open(mongoUrl)
+      .then((result) => {
+        console.log(result);
         app.listen(port, err => {
           if (err) {
             throw err;
@@ -42,9 +43,8 @@ export class Server {
           console.log(`APP is running on ,${port}`);
         });
       })
-      .catch((err) => {
-        console.log("ERROOOOOOOOOR");
-        throw err;
+      .catch(err => {
+        console.log(err);
       });
   }
 }
