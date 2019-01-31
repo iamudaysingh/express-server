@@ -3,6 +3,8 @@ import * as bodyParser from "body-parser";
 import { notFoundRoutes, errorHandler } from "./libs/routes";
 import router from "./router";
 import Database from "./libs/Database";
+import seedData from "./libs/seedData";
+
 export class Server {
   private app: express.Express;
   constructor(private config) {
@@ -41,7 +43,7 @@ export class Server {
             throw err;
           }
           console.log(`APP is running on ,${port}`);
-        });
+        })
       })
       .catch(err => {
         console.log(err);
