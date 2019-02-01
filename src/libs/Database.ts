@@ -21,6 +21,7 @@ export default class Database {
           console.log("DATABASE NOT CONNECTED");
           reject("Error :DATABASE NOT CONNECTED");
         });
+      /* @Sample Schema & Model for db connectivity check */
       // const schema = new mongoose.Schema({ name: String });
       // const cat = mongoose.model("cat", schema);
       // const kitty = new cat({ name: "jerry" });

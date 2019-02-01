@@ -9,18 +9,31 @@ export default class UserRepository {
   constructor() {
     this.model = userModel;
   }
-  public  create(data: any): Promise<IUserModel> {
+  public create(data: any): Promise<IUserModel> {
     return this.model.create({
       ...data,
       _id: UserRepository.generateObjectId()
     });
   }
-  // public  delete1(data: any): Promise<IUserModel> {
-  //   return this.model.delet({
-  //     ...data,
-  //     _id: UserRepository.generateObjectId()
-  //   });
-
+  public delete(data: any)  {
+    return this.model.deleteOne(data, err => {
+      if (err) {
+        console.log("Error",err);
+      } else {
+        console.log("Successfully Deleted");
+      }
+    });
+  }
+  public update(data: any, dataUp: any) {
+    return this.model.updateOne(data, dataUp, err => {
+      if (err) {
+        console.log("Failure in update ", err);
+      } else {
+        console.log("Success in update");
+      }
+    });
+  }
+  // Update data using save
   //   var userModel1 = new userModel(data);
   //  return userModel1.save((err) => {
   //     if(err) {
@@ -30,24 +43,14 @@ export default class UserRepository {
   //     console.log("successfully created");
   //   })
   // }
-  public  view(data: any) {
-    userModel.find({
-
-    }).then((data)=>{
-      console.log(data);
-    })
-   .catch((err)=>{
-     console.log(err);
-   })
-  //  public  countData(data: any) {
-  //   userModel.count({
-
-  //   }).then((data)=>{
-  //     console.log(data);
-  //   })
-  //  .catch((err)=>{
-  //    console.log(err);
-  //  })
-
-}
+  public view(data: any) {
+    userModel
+      .find({})
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 }
