@@ -1,5 +1,5 @@
 import { IPermission } from "./Interface";
-const getTrainee : string = "trainee";
+const getTrainee: string = "trainee";
 const head_trainer: string = "head-trainer";
 const trainer: string = "trainer";
 const trainee: string = "trainee";

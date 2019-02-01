@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import  successHandler  from "../../libs/routes/successHandler";
+import  {default as UserRepository} from"../../repositorty/user/UserRepository"
 class UserController {
   private static instance: UserController;
   public static getInstance() {
@@ -9,17 +10,18 @@ class UserController {
     return UserController.instance;
   }
   get(req: Request, res: Response, next: NextFunction) {
-    const data = [
-      {
-        name1: "trainee1",
-        id: 101
-      },
-      {
-        name2: "trainee2",
-        id: 102
-      }
-    ];
-    res.status(200).send(successHandler("200", "Successfully Found", data));
+    // const data = [
+    //   {
+    //     name1: ,
+    //     id: 101
+    //   },
+    //   {
+    //     name2: "trainee2",
+    //     id: 102
+    //   }
+    // ];
+
+    res.status(200).send(successHandler("200", "Successfully Found", req.users));
   }
   create(req: Request, res: Response, next: NextFunction) {
     const { name, id } = req.body;
@@ -58,9 +60,10 @@ class UserController {
 
   erase(req: Request, res: Response, next: NextFunction) {
     console.log("inside erase");
-    const id = req.params.id;
+    const id = {name : req.params.id};
+    new UserRepository().delete(id)
 
-    res.status(200).send(successHandler("200", "Successfully Deleted", "NULL"));
+    res.status(200).send(successHandler("200", "Successfully Deleted User", "NULL"));
   }
 }
 //const singleton:UserController = new UserController();

@@ -1,8 +1,8 @@
+import { Router } from 'express';
 import * as express from 'express';
 import traineeRouter from './controller/trainee/routes';
+import { userRouter } from './controller/users';
 const router = express.Router();
 router.use('/trainee', traineeRouter );
-router.use('/user', (req,res)=>{
-res.send("I AM USER")
-})
+router.use('/user', userRouter)
 export default router;

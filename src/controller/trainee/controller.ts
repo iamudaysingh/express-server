@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { successHandler } from "./";
+import { IUserRead } from "src/libs/Interface";
 class TraineeController {
   private static instance: TraineeController;
   public static getInstance() {
@@ -8,18 +9,19 @@ class TraineeController {
     }
     return TraineeController.instance;
   }
-  get(req: Request, res: Response, next: NextFunction) {
-    const data = [
-      {
-        name1: "trainee1",
-        id: 101
-      },
-      {
-        name2: "trainee2",
-        id: 102
-      }
-    ];
-    res.status(200).send(successHandler("200", "Successfully Found", data));
+  get(req: IUserRead, res: Response, next: NextFunction) {
+    // const data = [
+    //   {
+    //     name1: req.user.name,
+    //     email : req.user.email,
+    //     role : req.user.role
+    //   },
+    //   {
+    //     name2: "trainee2",
+    //     id: 102
+    //   }
+    // ];
+    res.status(200).send(successHandler("200", "Successfully Found", req.users));
   }
   create(req: Request, res: Response, next: NextFunction) {
     const { name, id } = req.body;
@@ -30,7 +32,7 @@ class TraineeController {
       }
     ];
     if (name && id) {
-      res.status(200).send(successHandler("200", "Successfully Stored", data));
+      res.status(200).send(successHandler("200", "Successfully Stored", req.users));
     } else {
       next({
         error: "Not Found",

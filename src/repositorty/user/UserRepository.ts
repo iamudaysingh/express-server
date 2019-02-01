@@ -9,16 +9,24 @@ export default class UserRepository {
   constructor() {
     this.model = userModel;
   }
+  public count(): mongoose.Query<number> {
+    //console.log(this.model.countDocuments({}));
+     return this.model.countDocuments({});
+    }
+  public findOne(query): mongoose.Query<IUserModel> {
+    return this.model.findOne(query);
+
+  }
   public create(data: any): Promise<IUserModel> {
     return this.model.create({
       ...data,
-      _id: UserRepository.generateObjectId()
+      _id: String(UserRepository.generateObjectId())
     });
   }
-  public delete(data: any)  {
+  public delete(data: any) {
     return this.model.deleteOne(data, err => {
       if (err) {
-        console.log("Error",err);
+        console.log("Error", err);
       } else {
         console.log("Successfully Deleted");
       }
@@ -33,19 +41,9 @@ export default class UserRepository {
       }
     });
   }
-  // Update data using save
-  //   var userModel1 = new userModel(data);
-  //  return userModel1.save((err) => {
-  //     if(err) {
-  //       console.log("NOT created",err);
-
-  //     }
-  //     console.log("successfully created");
-  //   })
-  // }
   public view(data: any) {
     userModel
-      .find({})
+      .find({data})
       .then(data => {
         console.log(data);
       })

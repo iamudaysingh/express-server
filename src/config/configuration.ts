@@ -1,4 +1,4 @@
-import { config } from "dotenv";
+import { config } from 'dotenv';
 import { IConfig } from "./IConfig";
 config();
 const configuration: IConfig = Object.freeze({
