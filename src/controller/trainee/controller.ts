@@ -1,68 +1,64 @@
-import { Router, Request, Response, NextFunction } from "express";
-import { successHandler } from "./";
+import { NextFunction, Request, Response  } from 'express';
+import IUserRead from '../../libs/Interface';
+import { successHandler } from './';
+
 class TraineeController {
-  private static instance: TraineeController;
   public static getInstance() {
     if (!TraineeController.instance) {
       TraineeController.instance = new TraineeController();
     }
     return TraineeController.instance;
   }
-  get(req: Request, res: Response, next: NextFunction) {
+  private static instance: TraineeController;
+  public get(req: Request, res: Response, next: NextFunction) {
+    console.log('Inside trainee get');
     const data = [
       {
-        name1: "trainee1",
-        id: 101
+        id: req.id,
+        name1: name,
       },
-      {
-        name2: "trainee2",
-        id: 102
-      }
     ];
-    res.status(200).send(successHandler("200", "Successfully Found", data));
+    res.status(200).send(successHandler('200', 'Successfully Found', data));
   }
-  create(req: Request, res: Response, next: NextFunction) {
+  public create(req: Request, res: Response, next: NextFunction) {
     const { name, id } = req.body;
     const data = [
       {
+        id: ({id}),
         name1: name,
-        id: id
-      }
+      },
     ];
     if (name && id) {
-      res.status(200).send(successHandler("200", "Successfully Stored", data));
+      res.status(200).send(successHandler('200', 'Successfully Stored', req.users));
     } else {
       next({
-        error: "Not Found",
+        Message: 'Name or id is missing',
+        error: 'Not Found',
         status: 404,
-        Message: "Name or id is missing"
       });
     }
   }
-  modify(req: Request, res: Response, next: NextFunction) {
+  public modify(req: Request, res: Response, next: NextFunction) {
     const { name, id } = req.body;
     const data = [
       {
+        id1: id,
         name1: name,
-        id: id
-      }
+      },
     ];
     if (name && id) {
       res
         .status(200)
-        .send(successHandler("200", "Successfully Modified", data));
+        .send(successHandler('200', 'Successfully Modified', data));
     } else {
-      next({ error: "Not Found", status: 404, Message: "Data is not present" });
+      next({ error: 'Not Found', status: 404, Message: 'Data is not present' });
     }
   }
 
-  erase(req: Request, res: Response, next: NextFunction) {
-    console.log("inside erase");
+  public erase(req: Request, res: Response, next: NextFunction) {
+    console.log('inside erase');
     const id = req.params.id;
-
-    res.status(200).send(successHandler("200", "Successfully Deleted", "NULL"));
+    res.status(200).send(successHandler('200', 'Successfully Deleted', 'NULL'));
   }
 }
-//const singleton:TraineeController = new TraineeController();
-//Object.freeze(singleton);
 export default TraineeController.getInstance();

@@ -1,30 +1,31 @@
-import * as mongoose from "mongoose";
-import { promises } from "fs";
-import { resolve } from "dns";
-import { rejects } from "assert";
+import * as mongoose from 'mongoose';
+import seedData from './seedData';
 
 export default class Database {
-  static open(mongoUrl) {
+  public static open(mongoUrl) {
     return new Promise((resolve, reject) => {
       mongoose
         .connect(
           mongoUrl,
-          { useNewUrlParser: true }
+          { useNewUrlParser: true },
         )
-        .then(result => {
-          resolve("DATABASE CONNECTED");
+        .then(() => {
+          seedData();
+          resolve('DATABASE CONNECTED');
+          // seedData();
         })
-        .catch(err => {
-          console.log("DATABASE NOT CONNECTED");
-          reject("Error :DATABASE NOT CONNECTED");
+        .catch((err) => {
+          console.log('DATABASE NOT CONNECTED', err);
+          reject('Error :DATABASE NOT CONNECTED');
         });
-      const schema = new mongoose.Schema({ name: String });
-      const cat = mongoose.model("cat", schema);
-      const kitty = new cat({ name: "jerry" });
-      kitty.save().then(() => console.log("meow"));
+      /* @Sample Schema & Model for db connectivity check */
+      // const schema = new mongoose.Schema({ name: String });
+      // const cat = mongoose.model("cat", schema);
+      // const kitty = new cat({ name: "jerry" });
+      // kitty.save().then(() => console.log("meow"));
     });
   }
-  static disconnect(mongoUrl) {
+  public static disconnect(mongoUrl) {
     mongoose.connection.close();
   }
 }

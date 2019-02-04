@@ -1,8 +1,9 @@
-import * as express from "express";
-import * as bodyParser from "body-parser";
-import { notFoundRoutes, errorHandler } from "./libs/routes";
-import router from "./router";
-import Database from "./libs/Database";
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import Database from './libs/Database';
+import {  errorHandler , notFoundRoutes } from './libs/routes';
+import seedData from './libs/seedData';
+import router from './router';
 export class Server {
   private app: express.Express;
   constructor(private config) {
@@ -20,11 +21,11 @@ export class Server {
   }
   public setupRoutes() {
     const { app } = this;
-    app.use("/health-check", (req, res) => {
-      console.log("INSIDE SETUPROUTES");
-      res.send("I AM OK");
+    app.use('/health-check', (req, res) => {
+      console.log('INSIDE SETUPROUTES');
+      res.send('I AM OK');
     });
-    app.use("/api", router);
+    app.use('/api', router);
     app.use(notFoundRoutes);
     app.use(errorHandler);
   }
@@ -36,14 +37,14 @@ export class Server {
     Database.open(mongoUrl)
       .then((result) => {
         console.log(result);
-        app.listen(port, err => {
+        app.listen(port, (err) => {
           if (err) {
             throw err;
           }
           console.log(`APP is running on ,${port}`);
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }

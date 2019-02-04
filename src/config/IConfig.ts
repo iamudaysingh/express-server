@@ -1,4 +1,4 @@
 export interface IConfig {
-port : string;
+port: string;
 key: string;
 }
