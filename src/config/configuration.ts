@@ -1,9 +1,9 @@
 import { config } from 'dotenv';
-import { IConfig } from "./IConfig";
+import { IConfig } from './IConfig';
 config();
 const configuration: IConfig = Object.freeze({
-  port: process.env.PORT,
-  key: process.env.key,
-  mongoUrl : process.env.MONGO_URL
+key: process.env.key,
+mongoUrl : process.env.MONGO_URL,
+port: process.env.PORT,
 });
 export default configuration;

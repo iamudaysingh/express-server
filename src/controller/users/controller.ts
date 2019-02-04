@@ -1,71 +1,59 @@
-import { Router, Request, Response, NextFunction } from "express";
-import  successHandler  from "../../libs/routes/successHandler";
-import  {default as UserRepository} from"../../repositorty/user/UserRepository"
-class UserController {
-  private static instance: UserController;
+import { NextFunction, Request, Response } from 'express';
+import IUserRead from '../../libs/Interface';
+import successHandler from '../../libs/routes/successHandler';
+import UserRepository from '../../repository/user/UserRepository';
+export class UserController {
   public static getInstance() {
     if (!UserController.instance) {
       UserController.instance = new UserController();
     }
     return UserController.instance;
   }
-  get(req: Request, res: Response, next: NextFunction) {
-    // const data = [
-    //   {
-    //     name1: ,
-    //     id: 101
-    //   },
-    //   {
-    //     name2: "trainee2",
-    //     id: 102
-    //   }
-    // ];
-
-    res.status(200).send(successHandler("200", "Successfully Found", req.users));
+  private static instance: UserController;
+  public get(req: IUserRead , res: Response, next: NextFunction) {
+  console.log('1234567890', req.users);
+  res.status(200).send(successHandler('200', 'Successfully Found', req.users));
   }
-  create(req: Request, res: Response, next: NextFunction) {
+  public create(req: Request, res: Response, next: NextFunction) {
     const { name, id } = req.body;
     const data = [
       {
+        id1: id,
         name1: name,
-        id: id
-      }
+      },
     ];
     if (name && id) {
-      res.status(200).send(successHandler("200", "Successfully Stored", data));
+      res.status(200).send(successHandler('200', 'Successfully Stored', data));
     } else {
       next({
-        error: "Not Found",
-        status: 404,
-        Message: "Name or id is missing"
+      Message: 'Name or id is missing',
+      error: 'Not Found',
+      status: 404,
       });
     }
   }
-  modify(req: Request, res: Response, next: NextFunction) {
+  public modify(req: Request, res: Response, next: NextFunction) {
     const { name, id } = req.body;
     const data = [
       {
+        id1: id,
         name1: name,
-        id: id
-      }
+      },
     ];
     if (name && id) {
       res
         .status(200)
-        .send(successHandler("200", "Successfully Modified", data));
+        .send(successHandler('200', 'Successfully Modified', data));
     } else {
-      next({ error: "Not Found", status: 404, Message: "Data is not present" });
+      next({ error: 'Not Found', status: 404, Message: 'Data is not present' });
     }
   }
 
-  erase(req: Request, res: Response, next: NextFunction) {
-    console.log("inside erase");
+  public erase(req: Request, res: Response, next: NextFunction) {
+    console.log('inside erase');
     const id = {name : req.params.id};
-    new UserRepository().delete(id)
-
-    res.status(200).send(successHandler("200", "Successfully Deleted User", "NULL"));
+    new UserRepository().delete(id);
+    res.status(200).send(successHandler('200', 'Successfully Deleted User', 'NULL'));
   }
 }
-//const singleton:UserController = new UserController();
-//Object.freeze(singleton);
 export default UserController.getInstance();

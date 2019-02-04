@@ -1,12 +1,12 @@
-import { userSchema } from "./UserModel";
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
+import { userSchema } from './UserModel';
 class UserSchema extends mongoose.Schema {
   constructor(options: any) {
     const baseSchema = {
       _id: String,
-      name: String,
       email: String,
-      role : String
+      name: String,
+      role : String,
     };
     super(baseSchema, options);
     console.log(baseSchema);

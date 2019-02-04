@@ -6,6 +6,6 @@ export interface IPermission {
     delete: string[];
   };
 }
-export interface IUserRead extends Request {
+export default interface IUserRead extends Request {
   users: any;
 }

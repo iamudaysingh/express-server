@@ -1,12 +1,13 @@
 export default function successHandler(
   status: string,
   message: string,
-  data: any
+  data: any,
 ) {
+  console.log('Inside Success handler', data);
   return {
-    status: status || "OK",
-    message: message || "Successful",
-    data: data || null,
-    timestamp: new Date()
+    data1: data ,
+    message : message || 'Successful',
+    status: status || 'OK',
+    timestamp: new Date(),
   };
 }

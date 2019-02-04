@@ -1,74 +1,73 @@
-export default config => (req, res, next) => {
+export default (config) => (req, res, next) => {
   const keys = Object.keys(config);
-  keys.forEach(key => {
+  keys.forEach((key) => {
     const item = config[key];
     const errMessage = config[key].errorMessage;
-    let values = item.in.map(item => {
+    const values = item.in.map((((item) => {
       return req[item][key];
-    });
+    })));
     if (item && item.required) {
-      const validatedValues = values.filter(item => item);
-      if (validatedValues.length != values.length) {
+      const validatedValues = values.filter((item) => item);
+      if (validatedValues.length !== values.length) {
         console.log(item.id.errorMessage);
-        console.log("vh jnm,");
+        console.log(' vh jnm ');
         next({
-          status: "Bad Request",
-          message: errMessage || `${key} is required` || "Error Message"
+          message: errMessage || `${key} is required` || 'Error Message' ,
+          status: 'Bad Request',
         });
       }
-      console.log("as", values, typeof values[0]);
+      console.log('as', values, typeof values[0]);
 
       if (item && item.string) {
-        const validatedValues = values.filter(item => typeof item == "string");
-        if (validatedValues.length != values.length) {
+        const validatedValues = values.filter((item) => typeof item === 'string');
+        if (validatedValues.length !== values.length) {
           console.log(`${key} is not String`);
           next({
-            status: "Bad Request",
-            message: errMessage || `${key} is required` || "Error Message"
+            message: errMessage || `${key} is required` || 'Error Message',
+            status: 'Bad Request',
           });
         }
       }
       if (item && item.number) {
         const validatedValues = values.filter(item => !isNaN(item));
-        if (validatedValues.length != values.length) {
+        if (validatedValues.length !== values.length) {
           console.log(`${key} is not number`);
           next({
-            status: "Bad Request",
-
             message:
               errMessage ||
               `${validatedValues} is not number` ||
-              "ERROR MESSAGE"
-          });
+              'ERROR MESSAGE',
+            status: 'Bad Request',
+            });
         }
       }
       if (item && item.regex) {
         const invalidatedValues = values.filter(
-          item => RegExp(item.regex).test(item) != true
+          (item) => RegExp(item.regex).test(item) !== true
         );
-        if (invalidatedValues.length != values.length) {
+        if (invalidatedValues.length !== values.length) {
           console.log(`${key} is not proper`);
           next({
-            status: "Bad Request",
-
             message:
               errMessage ||
               `${validatedValues} is not a proper name` ||
-              "ERROR MESSAGE"
+              'ERROR MESSAGE',
+            status: 'Bad Request',
+
           });
         }
       }
       if (item && item.isObject) {
-        const validatedValues = values.filter(item => typeof item == "object");
-        if (validatedValues.length != values.length) {
+        const validatedValues = values.filter(item => typeof item === 'object');
+        if (validatedValues.length !== values.length) {
           console.log(`${key} is not object`);
           next({
-            status: "Bad Request",
-
             message:
               errMessage ||
               `${validatedValues} is not a object` ||
-              "ERROR MESSAGE"
+              'ERROR MESSAGE',
+            status: 'Bad Request',
+
           });
         }
       }
@@ -79,17 +78,17 @@ export default config => (req, res, next) => {
       }
     }
     if (!item.required && item) {
-      const validatedValues = values.filter(item => item);
-      console.log("value ", values);
-      console.log("validated ", validatedValues);
+      const validatedValues = values.filter((item) => item);
+      console.log('value ', values);
+      console.log('validated', validatedValues);
 
       values.forEach(function skip_limit(v1) {
-        if (v1 == "") {
+        if (v1 === '') {
           v1 = item.default;
-          console.log("input1", v1);
+          console.log('input1', v1);
         } else {
           v1 = values;
-          console.log("input2", v1);
+          console.log('input2', v1);
         }
       });
       if (item.custom) {
