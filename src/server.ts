@@ -36,7 +36,7 @@ export class Server {
     } = this;
     Database.open(mongoUrl)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         app.listen(port, (err) => {
           if (err) {
             throw err;

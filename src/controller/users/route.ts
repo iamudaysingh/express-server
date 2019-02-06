@@ -1,14 +1,13 @@
 import {  Request, Response , Router } from 'express';
-
 // import  permissions  from '../../libs/constant';
-
 import { authMiddleware } from '../../libs/routes/authMiddleWare';
+import validationHandler from '../../libs/routes/validationHandler';
 import { UserController } from './controller';
-// import validationHandler from '../../libs/routes/validationHandler';
+import validation from './validation';
 const user = new UserController();
 const userRouter: Router = Router();
-userRouter.get('/',  authMiddleware('trainee', 'read'), user.get);
-userRouter.post('/', authMiddleware('trainee', 'write'), user.create);
-userRouter.put('/',  authMiddleware('trainee', 'delete'), user.modify);
-userRouter.delete('/:id', authMiddleware('trainee', 'write'), user.erase);
+userRouter.get('/',  authMiddleware('trainee', 'read'), validationHandler(validation.get), user.get);
+userRouter.post('/', authMiddleware('trainee', 'write'), validationHandler(validation.create),  user.create);
+userRouter.put('/',  authMiddleware('trainee', 'delete'), validationHandler(validation.update), user.modify);
+userRouter.delete('/:id', authMiddleware('trainee', 'write'), validationHandler(validation.delete), user.erase);
 export default userRouter;

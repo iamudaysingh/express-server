@@ -1,17 +1,17 @@
 import UserRepository from '../repository/user/UserRepository';
 // import { userModel } from 'src/repositorty/user/UserModel';
 export default function seedData() {
-  const objectRepository = new UserRepository();
+  // const objectRepository = new UserRepository();
 
-  objectRepository.count().then((count) => {
+  UserRepository.count().then((count) => {
     if (count === 0) {
       console.log('qwertyui', count);
-      objectRepository.create({
+      UserRepository.create({
         email: 'head-trainer@successive.tech',
         name: 'Uday',
         role: 'head-trainer',
       });
-      objectRepository.create({
+      UserRepository.create({
         email: 'head-trainer@successive.tech',
         name: 'Singh',
         role: 'trainee',
