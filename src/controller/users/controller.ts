@@ -15,16 +15,14 @@ export class UserController {
   res.status(200).send(successHandler('200', 'Successfully Found', req.users));
   }
   public create(req: Request, res: Response, next: NextFunction) {
-    const { name, id } = req.body;
-    const data = [
-      {
-        id1: id,
-        name1: name,
-      },
-    ];
-    if (name && id) {
-      res.status(200).send(successHandler('200', 'Successfully Stored', data));
+    const { name, email, role } = req.body;
+    // const data = { name, email, role };
+    console.log(req.body);
+    if (name) {
+      UserRepository.create(req.body);
+      res.status(200).send(successHandler('200', 'Successfully Stored',  req.body ));
     } else {
+      console.log('else of create');
       next({
       Message: 'Name or id is missing',
       error: 'Not Found',
@@ -33,15 +31,16 @@ export class UserController {
     }
   }
   public modify(req: Request, res: Response, next: NextFunction) {
-    const { name, id } = req.body;
-    const data = [
-      {
-        id1: id,
-        name1: name,
-      },
-    ];
-    if (name && id) {
-      res
+    console.log('1234567');
+    // const {name , id}  = req.query;
+    // const data = { name , id };
+    const { dataToUpdate , id}  = req.body;
+    const data = { dataToUpdate, id  };
+    console.log('1234567890 ----------------------->>>>>>>>>', id , data);
+    if (id) {
+        UserRepository.genericCreateUpdate(data);
+        console.log('after all');
+        res
         .status(200)
         .send(successHandler('200', 'Successfully Modified', data));
     } else {
@@ -50,9 +49,13 @@ export class UserController {
   }
 
   public erase(req: Request, res: Response, next: NextFunction) {
-    console.log('inside erase');
-    const id = {name : req.params.id};
-    new UserRepository().delete(id);
+    console.log('inside erase' );
+   // const id = {name : req.params.id};
+    const id1 = req.params.id;
+    console.log('inside erase', id1);
+    // console.log('inside erase', id1.split('=')[1] );
+    // const id = id1.split('=')[1];
+    UserRepository.genericDelete(id1);
     res.status(200).send(successHandler('200', 'Successfully Deleted User', 'NULL'));
   }
 }

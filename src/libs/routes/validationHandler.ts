@@ -1,11 +1,17 @@
 export default (config) => (req, res, next) => {
   const keys = Object.keys(config);
+  console.log(keys);
   keys.forEach((key) => {
+    console.log('1234567890');
     const item = config[key];
-    const errMessage = config[key].errorMessage;
-    const values = item.in.map((((item) => {
+    console.log('fff', item);
+    const errMessage =  'error';    // config[key].errorMessage;
+    console.log(errMessage);
+    const values = item.in.map((item) => {
+      console.log('1' ,  req[item][key]);
       return req[item][key];
-    })));
+    });
+    console.log('hi', values );
     if (item && item.required) {
       const validatedValues = values.filter((item) => item);
       if (validatedValues.length !== values.length) {
@@ -72,9 +78,7 @@ export default (config) => (req, res, next) => {
         }
       }
       if (item.custom) {
-        values.forEach(function skip_limit(v1) {
-          values.custom(v1);
-        });
+      item.custom('');
       }
     }
     if (!item.required && item) {

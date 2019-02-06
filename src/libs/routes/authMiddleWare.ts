@@ -6,8 +6,9 @@ import IUserRead from '../Interface';
 import hasPermission from './hasPermission';
 export function authMiddleware(moduleName: string, permissionType: string) {
   return (req: IUserRead, res: Response, next: NextFunction) => {
-    const token = req.headers['authorization'];
-    console.log('---------------->>>', token);
+    const token = req.headers['abc'];
+    console.log("token is ----<><><>", token);
+    // console.log('---------------->>>', req.headers);
     const { key } = configuration.default;
     const user = jwt.verify(token, key);
     console.log(user);
@@ -15,8 +16,8 @@ export function authMiddleware(moduleName: string, permissionType: string) {
     const { id } = user;
     console.log(id);
     // console.log(user.id);
-    const userRepo = new UserRepository();
-    userRepo
+    // const userRepo = new UserRepository();
+    UserRepository
       .findOne({ _id: id })
       .then(
         (data) => {
@@ -36,7 +37,7 @@ export function authMiddleware(moduleName: string, permissionType: string) {
           next();
         },
       )
-     .catch((err) => {
+    .catch((err) => {
         console.log('error', err);
     } );
   };
