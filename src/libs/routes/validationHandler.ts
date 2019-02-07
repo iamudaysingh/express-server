@@ -1,4 +1,6 @@
 export default (config) => (req, res, next) => {
+  let i = 0;
+  const skipLimit = [];
   const keys = Object.keys(config);
   console.log(keys);
   keys.forEach((key) => {
@@ -85,16 +87,23 @@ export default (config) => (req, res, next) => {
       const validatedValues = values.filter((item) => item);
       console.log('value ', values);
       console.log('validated', validatedValues);
-
       values.forEach(function skip_limit(v1) {
         if (v1 === '') {
           v1 = item.default;
+          // v1.push(skipLimit);
+          skipLimit[i] =  v1;
+          i++;
           console.log('input1', v1);
         } else {
           v1 = values;
+          skipLimit[i] =  v1;
+          i++;
           console.log('input2', v1);
         }
+        console.log('array' , skipLimit[0] , skipLimit[1]);
+        req.body.newAr = skipLimit;
       });
+
       if (item.custom) {
         values.forEach(function callCustom(v1) {
           values.custom(v1);
@@ -102,5 +111,7 @@ export default (config) => (req, res, next) => {
       }
     }
   });
+  console.log('Skip Limit' , skipLimit);
+
   next();
 };

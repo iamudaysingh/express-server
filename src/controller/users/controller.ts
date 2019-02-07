@@ -10,9 +10,14 @@ export class UserController {
     return UserController.instance;
   }
   private static instance: UserController;
-  public get(req: IUserRead , res: Response, next: NextFunction) {
-  console.log('1234567890', req.users);
-  res.status(200).send(successHandler('200', 'Successfully Found', req.users));
+  public async get(req: any , res: Response, next: NextFunction) {
+  // console.log('1234567890 ----- req users', req.body);
+  console.log('new array is --- ', req.body);
+  const skip = req.query.skip;
+  const limit = req.query.limit;
+  const skipLimit = { skip , limit};
+  const allData = await UserRepository.get(skipLimit);
+  res.status(200).send(successHandler('200', 'Successfully Found', allData));
   }
   public create(req: Request, res: Response, next: NextFunction) {
     const { name, email, role } = req.body;
@@ -50,11 +55,11 @@ export class UserController {
 
   public erase(req: Request, res: Response, next: NextFunction) {
     console.log('inside erase' );
-   // const id = {name : req.params.id};
+  // const id = {name : req.params.id};
     const id1 = req.params.id;
     console.log('inside erase', id1);
-    // console.log('inside erase', id1.split('=')[1] );
-    // const id = id1.split('=')[1];
+  // console.log('inside erase', id1.split('=')[1] );
+  // const id = id1.split('=')[1];
     UserRepository.genericDelete(id1);
     res.status(200).send(successHandler('200', 'Successfully Deleted User', 'NULL'));
   }

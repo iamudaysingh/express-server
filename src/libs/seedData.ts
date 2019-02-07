@@ -1,24 +1,28 @@
+import * as bcrypt from 'bcrypt';
 import UserRepository from '../repository/user/UserRepository';
-// import { userModel } from 'src/repositorty/user/UserModel';
 export default function seedData() {
-  // const objectRepository = new UserRepository();
-
-  UserRepository.count().then((count) => {
+console.log('inside', process.env.PASSWORD );
+const saltRounds = 10;
+const hash = bcrypt.hashSync(process.env.PASSWORD, saltRounds);
+console.log('hi', hash);
+UserRepository.count().then((count) => {
     if (count === 0) {
       console.log('qwertyui', count);
       UserRepository.create({
         email: 'head-trainer@successive.tech',
         name: 'Uday',
+        password: hash,
         role: 'head-trainer',
       });
       UserRepository.create({
         email: 'head-trainer@successive.tech',
         name: 'Singh',
+        password: hash,
         role: 'trainee',
       });
     }
   });
-
+  // Direct Calling Check
   //  const objectRepository = new UserRepository();
   //  objectRepository.create({ id: "5", name: "uday" });
   //  objectRepository.countData();

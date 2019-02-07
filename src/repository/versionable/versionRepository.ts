@@ -22,25 +22,22 @@ this.modelType = model;
 // originalId: newId,
 // });
 // }
-public genericCreate(data: any): Promise<D> {
+public async genericCreate(data: any): Promise<D> {
   const newId = VersionableRepository.generateObjectId();
-  return this.modelType.create({...data,
+  return await this.modelType.create({...data,
   _id: newId,
   originalId: newId,
   } );
   }
-public genericVersionUpdate(data: any , res: any) {
+public async genericVersionUpdate(data: any , res: any) {
   console.log('inside generic version', data);
   const newId = VersionableRepository.generateObjectId();
-  const newId1 = res._id;
   delete res._id;
-  this.modelType.updateOne({ originalId : newId1, deletedAt: { $exists: false}},
-    { deletedAt : Date.now(), deleted: true }).then(
-    (err) => console.log(err),
-    );
-  return this.modelType.create(
+  const newObj = Object.assign(res ,  data);
+  console.log('inside generic version 2', newObj);
+  return await this.modelType.create(
     {
-    ...data.dataToUpdate ,
+    ...newObj ,
     originalId :  data.id,
     // tslint:disable-next-line:object-literal-sort-keys
     _id: newId,
@@ -49,7 +46,7 @@ public genericVersionUpdate(data: any , res: any) {
 public genericUpdate(data: any, dataToUpdate: any) {
 
 // return this.modelType.updateOne(data, dataUpdated);
-return this.modelType.updateMany(data, dataToUpdate, (err) => {
+return this.modelType.updateOne(data, dataToUpdate, (err) => {
   if (err) {
     console.log('Failure in update', err);
   } else {
@@ -57,20 +54,20 @@ return this.modelType.updateMany(data, dataToUpdate, (err) => {
   }
 });
 }
-public genericCreateUpdate(data: any) {
+public async genericCreateUpdate(data: any) {
 console.log('qwertyuio', data);
-this.modelType.findOne({ originalId : data.id})
-  .then((res) => {
+const res = await this.modelType.findOne({ originalId : data.id});
   // console.log('id found 1234567890', res.id );
   // console.log('hi123' , res.id);
-  this.genericVersionUpdate(data , res._id);
-})
-  .catch((err) => {
-      console.log('Invalid', err);
-  });
-
+const newId = res._id;
+this.genericVersionUpdate(data , res);
+return await this.modelType.updateOne({ originalId : newId , deletedAt: { $exists: false}},
+    { deletedAt : Date.now(), deleted: true }).then(
+    (err) => console.log(err),
+    );
 }
 public genericCount(): mongoose.Query < number > {
+console.log('hi');
 return this.modelType.countDocuments({});
 }
 public genericFindOne(Data): mongoose.DocumentQuery<D, D, {}> {
@@ -78,16 +75,15 @@ return this.modelType.findOne(Data);
 }
 public genericDelete(data: any ) {
 console.log('I am inside delete' , data);
-// return this.modelType.findOneAndDelete({
-// ...data,
-// function(err) {
-// if (err) {
-// throw err;
-// }
-// console.log('1 document deleted');
-// },
-// });
 this.modelType.updateOne( { _id : data , deletedAt : { $exists : false } } , {deletedAt : Date.now() } ).then(
 (err) => console.log(err));
 }
+public async genericGet(data: any ) {
+  console.log('I am inside get' , data);
+  const { skip , limit } = data;
+  console.log('skip', skip);
+  const allData = await  this.modelType.find( undefined, {skip , limit});
+  console.log('asasas', allData);
+  return allData;
+  }
 }

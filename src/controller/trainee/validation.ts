@@ -44,15 +44,15 @@ email: {
       in: ['query'],
       number: true,
       required: false,
-     },
+    },
   },
   update: {
     dataToUpdate: {
-      custom : (dataToUpdate) => {},
+      custom : (dataToUpdate) => { console.log('inside update' , dataToUpdate); },
       in: ['body'],
       isObject: true,
       required: true,
-   },
+  },
     id: {
         in: ['body'],
         required: true,
