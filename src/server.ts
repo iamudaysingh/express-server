@@ -32,11 +32,10 @@ export class Server {
   public run() {
     const {
       app,
-      config: { port, mongoUrl }
+      config: { port, mongoUrl },
     } = this;
     Database.open(mongoUrl)
       .then((result) => {
-        // console.log(result);
         app.listen(port, (err) => {
           if (err) {
             throw err;

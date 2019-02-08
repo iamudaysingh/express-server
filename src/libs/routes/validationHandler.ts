@@ -1,28 +1,20 @@
 export default (config) => (req, res, next) => {
   const keys = Object.keys(config);
-  console.log(keys);
   keys.forEach((key) => {
-    console.log('1234567890');
     const item = config[key];
-    console.log('fff', item);
-    const errMessage =  'error';    // config[key].errorMessage;
-    console.log(errMessage);
+    const errMessage = config[key].errorMessage;
     const values = item.in.map((item) => {
-      console.log('1' ,  req[item][key]);
       return req[item][key];
     });
-    console.log('hi', values );
     if (item && item.required) {
       const validatedValues = values.filter((item) => item);
       if (validatedValues.length !== values.length) {
         console.log(item.id.errorMessage);
-        console.log(' vh jnm ');
         next({
           message: errMessage || `${key} is required` || 'Error Message' ,
           status: 'Bad Request',
         });
       }
-      console.log('as', values, typeof values[0]);
 
       if (item && item.string) {
         const validatedValues = values.filter((item) => typeof item === 'string');
@@ -48,10 +40,10 @@ export default (config) => (req, res, next) => {
         }
       }
       if (item && item.regex) {
-        const invalidatedValues = values.filter(
-          (item) => RegExp(item.regex).test(item) !== true
+        const validatedValuesEmail = values.filter(
+          (item) => RegExp(item.regex).test(item) === true,
         );
-        if (invalidatedValues.length !== values.length) {
+        if (validatedValuesEmail.length !== values.length) {
           console.log(`${key} is not proper`);
           next({
             message:
@@ -64,8 +56,8 @@ export default (config) => (req, res, next) => {
         }
       }
       if (item && item.isObject) {
-        const validatedValues = values.filter(item => typeof item === 'object');
-        if (validatedValues.length !== values.length) {
+        const validatedValuesObject = values.filter( (itemObject) => typeof itemObject === 'object');
+        if (validatedValuesObject.length !== values.length) {
           console.log(`${key} is not object`);
           next({
             message:
@@ -73,7 +65,6 @@ export default (config) => (req, res, next) => {
               `${validatedValues} is not a object` ||
               'ERROR MESSAGE',
             status: 'Bad Request',
-
           });
         }
       }
@@ -82,17 +73,11 @@ export default (config) => (req, res, next) => {
       }
     }
     if (!item.required && item) {
-      const validatedValues = values.filter((item) => item);
-      console.log('value ', values);
-      console.log('validated', validatedValues);
-
-      values.forEach(function skip_limit(v1) {
-        if (v1 === '') {
-          v1 = item.default;
-          console.log('input1', v1);
+      values.forEach(function skipLimit(finalValues) {
+        if (finalValues === '') {
+          finalValues = item.default;
         } else {
-          v1 = values;
-          console.log('input2', v1);
+          finalValues = values;
         }
       });
       if (item.custom) {

@@ -1,11 +1,11 @@
 export default function successHandler(
   status: string,
-  message: string,
+  message: any,
   data: any,
 ) {
   console.log('Inside Success handler', data);
   return {
-    data1: data ,
+    data: {data} ,
     message : message || 'Successful',
     status: status || 'OK',
     timestamp: new Date(),

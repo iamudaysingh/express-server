@@ -23,13 +23,6 @@ const validation = {
       required: true,
     },
   },
-
-email: {
-  errorMessage: 'Email is required',
-  in: ['body'],
-  regex: /^[A-Za-z0-9._%+-]+@successive.tech$/,
-  required: true,
-  },
   get: {
     limit: {
       default: 10,
@@ -44,15 +37,15 @@ email: {
       in: ['query'],
       number: true,
       required: false,
-     },
+    },
   },
   update: {
     dataToUpdate: {
-      custom : (dataToUpdate) => {},
+      custom : (dataToUpdate) => { console.log('inside update' , dataToUpdate); },
       in: ['body'],
       isObject: true,
       required: true,
-   },
+  },
     id: {
         in: ['body'],
         required: true,

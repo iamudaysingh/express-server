@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response  } from 'express';
-import IUserRead from '../../libs/Interface';
 import { successHandler } from './';
 
-class TraineeController {
+class TraineeController  {
   public static getInstance() {
     if (!TraineeController.instance) {
       TraineeController.instance = new TraineeController();
@@ -14,10 +13,11 @@ class TraineeController {
     console.log('Inside trainee get');
     const data = [
       {
-        id: req.id,
-        name1: name,
+        id: '101' ,
+        name1: 'uday',
       },
     ];
+    console.log('1111111111', data);
     res.status(200).send(successHandler('200', 'Successfully Found', data));
   }
   public create(req: Request, res: Response, next: NextFunction) {

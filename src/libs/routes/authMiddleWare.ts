@@ -7,21 +7,13 @@ import hasPermission from './hasPermission';
 export function authMiddleware(moduleName: string, permissionType: string) {
   return (req: IUserRead, res: Response, next: NextFunction) => {
     const token = req.headers['abc'];
-    console.log("token is ----<><><>", token);
-    // console.log('---------------->>>', req.headers);
     const { key } = configuration.default;
     const user = jwt.verify(token, key);
-    console.log(user);
-    console.log('qd ', user.role);
     const { id } = user;
-    console.log(id);
-    // console.log(user.id);
-    // const userRepo = new UserRepository();
     UserRepository
       .findOne({ _id: id })
       .then(
         (data) => {
-          console.log('me', data);
           if (!hasPermission(moduleName, data.role, permissionType)) {
             console.log('no');
             next({
@@ -30,9 +22,7 @@ export function authMiddleware(moduleName: string, permissionType: string) {
             });
           }
           else {
-          console.log('********************');
           req.users = data;
-          console.log('11111111111', req.users);
           }
           next();
         },

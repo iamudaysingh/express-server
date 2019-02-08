@@ -8,4 +8,6 @@ export interface IPermission {
 }
 export default interface IUserRead extends Request {
   users: any;
+  skipLimit: any;
+  query: any;
 }
