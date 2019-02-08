@@ -23,13 +23,6 @@ const validation = {
       required: true,
     },
   },
-
-email: {
-  errorMessage: 'Email is required',
-  in: ['body'],
-  regex: /^[A-Za-z0-9._%+-]+@successive.tech$/,
-  required: true,
-  },
   get: {
     limit: {
       default: 10,

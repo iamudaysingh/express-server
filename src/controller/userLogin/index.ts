@@ -1,2 +1,2 @@
-import { Router } from 'express';
-export default { userLogin : Router };
+import validation from './validation';
+export default {  validation };

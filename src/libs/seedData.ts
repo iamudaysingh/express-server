@@ -15,7 +15,7 @@ UserRepository.count().then((count) => {
         role: 'head-trainer',
       });
       UserRepository.create({
-        email: 'head-trainer@successive.tech',
+        email: 'head-trainee@successive.tech',
         name: 'Singh',
         password: hash,
         role: 'trainee',

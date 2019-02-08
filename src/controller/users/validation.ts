@@ -1,21 +1,23 @@
 const validation = {
   create: {
-    id: {
-      custom : ( value ) => {
-        console.log('Value', value);
-        // throw { error: 'Error Occur', message: 'Message' };
-      },
-      in: ['body'],
-      required: true,
-      string: true,
+    email: {
+    errorMessage: 'Email is required',
+    in: ['body'],
+    regex: /^[A-Za-z0-9._%+-]+@successive.tech$/,
+    required: true,
     },
     name: {
-      errorMessage: 'Name is required',
-      in: ['body'],
-      regex: /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
-      required: true,
+    errorMessage: 'Name is required',
+    in: ['body'],
+    regex: /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
+    required: true,
     },
-  },
+    role: {
+    errorMessage: 'role is required',
+    in: ['body'],
+    required: true,
+    },
+    },
   delete: {
     id: {
       errorMessage: 'Id is required',
@@ -41,11 +43,11 @@ const validation = {
   },
   update: {
     dataToUpdate: {
-      custom : (dataToUpdate) => { console.log('qw'); },
+      custom : (dataToUpdate) => { console.log('Data to Update ====>' , dataToUpdate); },
       in: ['body'],
       isObject: true,
       required: true,
-   },
+  },
     id: {
         in: ['body'],
         required: true,
